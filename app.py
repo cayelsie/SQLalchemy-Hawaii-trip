@@ -45,8 +45,8 @@ def home():
         f'Precipitation information: /api/v1.0/precipitation <br/>'
         f'List of stations: /api/v1.0/stations <br/>'
         f'Temperature observations of the most active station for the last year of data: /api/v1.0/tobs <br/>'
-        f'Temperature observations of the most active station from a given start date: /api/v1.0/<start> <br/>'
-        f'Temperature observations of the most active station from a given date range: /api/v1.0/<start>/<end> <br/>'
+        f'Temperature observations of the most active station from a given start date: /api/v1.0/YOUR_START_DATE_HERE <br/>'
+        f'Temperature observations of the most active station from a given date range: /api/v1.0/YOUR_START_DATE_HERE /YOUR_END_DATE_HERE  <br/>'
     )
 
 @app.route('/api/v1.0/precipitation')
@@ -64,6 +64,21 @@ def precipitation():
         precip.append(precip_dict)
 
     return jsonify(precip)
+
+@app.route ('/api/v1.0/stations')
+def stations():
+    session = Session(engine)
+    sel = [Station.station, Station.name]
+    result = session.query(*sel).group_by(Station.station)
+    session.close()
+
+    stations = []
+    for station, name in result:
+        station_dict = {}
+        station_dict["Station"] = station
+        station_dict["Name"] = name
+        stations.append(station_dict)
+    return jsonify (stations)
 
 
 if __name__ == "__main__":
