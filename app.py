@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 
 import numpy as np
-from datetime import datetime as dt
+import datetime as dt
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -80,6 +80,20 @@ def stations():
         stations.append(station_dict)
     return jsonify (stations)
 
+@app.route ('/api/v1.0/tobs')
+def temps():
+    session = Session(engine)
+    last_year = dt.date(2017, 8, 23) - dt.timedelta(days=365)
+    sel = [Measurement.date, Measurement.tobs]
+    result = session.query(*sel).filter(Measurement.date >= last_year).filter(Measurement.station == "USC00519281").all()
+
+    temps = []
+    for date, temp in result:
+        temps_dict = {}
+        temps_dict["Date"] = date
+        temps_dict["Temperature"] = temp
+        temps.append(temps_dict)
+    return jsonify (temps)
 
 if __name__ == "__main__":
     app.run(debug=True)
