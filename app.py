@@ -46,10 +46,10 @@ def home():
         f'Precipitation information: /api/v1.0/precipitation <br/>'
         f'List of stations: /api/v1.0/stations <br/>'
         f'Temperature observations of the most active station for the last year of data: /api/v1.0/tobs <br/>'
-        f'Minimum, average and maximum temperature observed, calculated from a given start date through the most recent date: /api/v1.0/YOUR_START_DATE <br/>'
+        f'Minimum, average and maximum temperature observed, calculated from a given start date through the most recent date that readings were taken: /api/v1.0/&lt;start&gt;<br/>'
         f'(Enter date as 4 digit year, 2 digit month and 2 digit day: xxxx-xx-xx) <br/>'
-        f'Minimum, average and maximum temperature observed, calculated from a given start date through a given end date: /api/v1.0/YOUR_START_DATE/YOUR_END_DATE  <br/>'
-        f'(Enter date as 4 digit year, 2 digit month and 2 digit day: xxxx-xx-xx)'
+        f'Minimum, average and maximum temperature observed, calculated from a given start date through a given end date: /api/v1.0/&lt;start&gt;/&lt;end&gt; <br/>'
+        f'(Enter date as 4 digit year, 2 digit month and 2 digit day: YYYY-MM-DD)'
     )
 
 #Route for displaying all precipiation data from all stations
@@ -134,7 +134,6 @@ def temps_stop(start,end):
         temp_stop.append(temp_stop_dict)
 
     return jsonify(temp_stop)
-    #return jsonify(f'{temp_stop} between the dates of {start}, {end}') - looks weird in display
 
 #Define main behavior
 if __name__ == "__main__":
