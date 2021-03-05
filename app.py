@@ -60,6 +60,7 @@ def precipitation():
     result = session.query(*sel).all()
     session.close()
 
+    #Create a list, which will contain a dictionary of the dates and prcp information. Display in JSON format.
     precip = []
     for date, prcp in result:
         precip_dict = {}
@@ -77,6 +78,8 @@ def stations():
     result = session.query(*sel).group_by(Station.station)
     session.close()
 
+
+    #Create a list, which will contain a dictionary of the station IDs and names. Display in JSON format.
     stations = []
     for station, name in result:
         station_dict = {}
@@ -93,6 +96,8 @@ def temps():
     sel = [Measurement.date, Measurement.tobs]
     result = session.query(*sel).filter(Measurement.date >= last_year).filter(Measurement.station == "USC00519281").all()
 
+
+    #Create a list, which will contain a dictionary of the dates and temp information. Display in JSON format.
     temps = []
     for date, temp in result:
         temps_dict = {}
@@ -108,6 +113,8 @@ def temps_start(start):
     temp_stats_start = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start).all()
     session.close()
 
+
+    #Create a list, which will contain a dictionary of the min, avg and max temp for the date range. Display in JSON format.
     temp_start = []
     for min, avg, max in temp_stats_start:
         temp_start_dict = {}
@@ -124,7 +131,8 @@ def temps_stop(start,end):
     session = Session(engine)
     temp_stats_stop = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start).filter(Measurement.date<= end).all()
     session.close()
-
+    
+#Create a list, which will contain a dictionary of the min, avg and max temp for the date range. Display in JSON format.
     temp_stop = []
     for min, avg, max in temp_stats_stop:
         temp_stop_dict = {}
