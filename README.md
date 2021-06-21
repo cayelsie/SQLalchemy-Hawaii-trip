@@ -1,4 +1,4 @@
-This analysis uses Python, SQLAlchemy, Flask and a jupyter notebook to analyze and share climate data for an upcoming trip to Honolulu, Hawaii.
+This analysis uses Python, SQLAlchemy, Flask and Pandas in Jupyter notebook to analyze and share climate data for an upcoming trip to Honolulu, Hawaii.
 
 The initial analysis used jupyter notebook with SQLAlchemy to connect with a sqlite database containing information about temperature and precipitation from weather stations in the Honolulu area. A query pulled the last 12 months of precipitation data, which was then plotted using Pandas plot. Summary statistics were also calculated on the last 12 months of precipitation data. Additionally, the total number of weather stations was determined, as well as the most active weather station. The max, min and average temps recorded from the most active station. A query pulled the last 12 months of temperature data from the most active station, and this was plotted in a histogram format. This analysis can be found at climate_main.ipynb.
 
